@@ -1,7 +1,5 @@
   // ignore_for_file: constant_identifier_names
-
   import 'package:flutter/material.dart';
-  // paste this in a static.dart file
   
   // To use
   // import '<path>' as Static;

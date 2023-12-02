@@ -1,3 +1,4 @@
+import 'package:budget_tracker/controllers/dbhelper.dart';
 import 'package:flutter/material.dart';
 // ignore: library_prefixes
 import 'package:budget_tracker/static.dart' as Static;
@@ -195,12 +196,15 @@ class _AddTransactionState extends State<AddTransaction> {
           SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () {
-                debugPrint(amount.toString());
-                debugPrint(note);
-                debugPrint(type);
-                debugPrint(selectedDate.toString());
-                Navigator.pop(context);             
+              onPressed: () async {
+                if (amount != null && note.isNotEmpty) {
+                  DbHelper db = DbHelper();
+                  await db
+                      .addData(amount, selectedDate, note, type)
+                      .whenComplete(() => Navigator.of(context).pop());
+                } else {
+                  debugPrint("Not all values are provided.");
+                }
               },
               child: const Text(
                 "ADD",
